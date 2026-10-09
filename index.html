@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101014">
+  <title>Eskişehir Bike Shop — Bisiklet Pazarı</title>
+  <meta name="description" content="Eskişehir'in bisiklet ve bisiklet parçası alım satım topluluğu.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">\n  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Eskişehir Bike Shop ana sayfa"><span class="brand-mark">EB</span><span>ESKİŞEHİR <b>BIKE SHOP</b><small>ŞEHRİN BİSİKLET PAZARI</small></span></a>
+    <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Kadro, maşa, ruble, bisiklet ara..." aria-label="İlan ara"><select id="categoryFilter" aria-label="Kategori"><option value="">Tüm kategoriler</option><option>Kadrolar</option><option>Maşalar</option><option>Jant & Göbek</option><option>Frenler</option><option>Vites & Ruble</option><option>Gidon & Elcik</option><option>Pedal</option><option>Lastik</option><option>Komple Bisiklet</option><option>Diğer</option></select></div>
+    <nav class="nav-actions"><button class="btn btn-ghost" id="loginOpen">Giriş yap</button><button class="btn btn-primary" id="postOpen">＋ İlan ver</button><button class="avatar hidden" id="profileOpen" aria-label="Profil">U</button></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy"><div class="eyebrow"><span class="dot"></span> ESKİŞEHİR'DEKİ BİSİKLETÇİLERİN BULUŞMA NOKTASI</div><h1>Parçanı bul.<br><span>Yoluna devam et.</span></h1><p>Bisikletini, parçanı veya bir sonraki projenin eksiklerini Eskişehir'in bisiklet topluluğunda keşfet.</p><div class="hero-actions"><button class="btn btn-primary btn-large" id="heroPost">＋ Ücretsiz ilan ver</button><a class="text-link" href="#listings">İlanları keşfet <span>↘</span></a></div><div class="hero-stats"><div><b>ESKİŞEHİR</b><small>YEREL TOPLULUK</small></div><div><b>PARÇA • BİSİKLET</b><small>AL / SAT / TAKAS</small></div></div></div>
+      <div class="hero-art"><div class="art-glow"></div><div class="art-label">RIDE LOCAL <span>/// 026</span></div><div class="bike-silhouette">🚵</div><div class="art-bottom"><span>BUİLD YOUR RIDE.</span><span>EST. ESKİŞEHİR</span></div></div>
+    </section>
+
+    <section class="category-section">
+      <div class="section-heading"><div><span class="eyebrow">NE ARIYORSUN?</span><h2>Kategorilere göz at</h2></div><button class="plain-link" id="clearFilters">Filtreleri temizle ↗</button></div>
+      <div class="category-grid">
+        <button class="category-card" data-category="Komple Bisiklet"><span>🚲</span><b>Komple bisiklet</b><small>Bisikletler</small></button>
+        <button class="category-card" data-category="Kadrolar"><span>▱</span><b>Kadro</b><small>Projenin temeli</small></button>
+        <button class="category-card" data-category="Maşalar"><span>⌁</span><b>Maşa</b><small>Havalı / yaylı</small></button>
+        <button class="category-card" data-category="Jant & Göbek"><span>◉</span><b>Jant & göbek</b><small>Setler ve parçalar</small></button>
+        <button class="category-card" data-category="Vites & Ruble"><span>⚙</span><b>Vites & ruble</b><small>Aktarma parçaları</small></button>
+        <button class="category-card" data-category="Frenler"><span>⦿</span><b>Fren sistemi</b><small>Disk / hidrolik</small></button>
+        <button class="category-card" data-category="Pedal"><span>✣</span><b>Pedal & elcik</b><small>Küçük ama önemli</small></button>
+        <button class="category-card" data-category="Lastik"><span>◌</span><b>Lastik</b><small>Yol / MTB / enduro</small></button>
+      </div>
+    </section>
+
+    <section class="listings-section" id="listings">
+      <div class="section-heading"><div><span class="eyebrow">PAZAR YERİ</span><h2>Son ilanlar <span class="live-pill"><i></i> CANLI</span></h2><p class="section-subtitle">Yeni eklenen bisiklet ve parçalar</p></div><div class="sort-wrap"><label for="sortSelect">Sırala</label><select id="sortSelect"><option value="new">En yeni</option><option value="low">Fiyat: artan</option><option value="high">Fiyat: azalan</option></select></div></div>
+      <div id="statusMessage" class="status-message">İlanlar yükleniyor...</div>
+      <div id="listingGrid" class="listing-grid"></div>
+      <div id="emptyState" class="empty-state hidden"><div>⌕</div><h3>Burada henüz ilan yok</h3><p>Aramana uygun ilan bulunamadı. Filtreleri değiştirebilir veya ilk ilanı sen ekleyebilirsin.</p><button class="btn btn-primary" id="emptyPost">İlk ilanı ver</button></div>
+    </section>
+
+    <section class="community-banner"><div><span class="eyebrow">LOCAL RIDERS. REAL PARTS.</span><h2>Eskişehir'in bisiklet kültürü,<br>tek bir yerde.</h2><p>İlanını paylaş, yeni parçanı bul, bisikletini geliştir.</p></div><button class="btn btn-light" id="communityPost">Hemen katıl ↗</button></section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">EB</span><span>ESKİŞEHİR <b>BIKE SHOP</b><small>ŞEHRİN BİSİKLET PAZARI</small></span></a><span>Yerel bisiklet topluluğu için yapıldı. <b>026</b></span><span class="footer-links"><a href="#listings">İlanlar</a><button id="footerRules">Güvenli alışveriş</button></span></footer>
+
+  <div class="modal-backdrop hidden" id="authModal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle"><button class="modal-close" data-close="authModal">×</button><div class="modal-brand">EB<span> / HESAP</span></div><h2 id="authTitle">Topluluğa katıl</h2><p class="muted" id="authDescription">İlan vermek ve favorilerini kaydetmek için giriş yap.</p>
+      <div class="tab-row"><button class="tab active" data-auth-mode="login">Giriş yap</button><button class="tab" data-auth-mode="signup">Hesap oluştur</button></div>
+      <form id="authForm"><label>E-posta<input type="email" id="authEmail" required autocomplete="email" placeholder="ornek@mail.com"></label><label>Şifre<input type="password" id="authPassword" required minlength="6" autocomplete="current-password" placeholder="En az 6 karakter"></label><label id="usernameField" class="hidden">Kullanıcı adı<input id="authUsername" type="text" maxlength="24" placeholder="ornek_kullanici"></label><button class="btn btn-primary full" type="submit" id="authSubmit">Giriş yap</button><p class="form-message" id="authMessage"></p></form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="postModal">
+    <section class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="postTitle"><button class="modal-close" data-close="postModal">×</button><div class="modal-brand">EB<span> / İLAN OLUŞTUR</span></div><h2 id="postTitle">Parçanı satışa çıkar</h2><p class="muted">Net fotoğraflar ve dürüst açıklama daha hızlı alıcı bulmana yardımcı olur.</p>
+      <form id="listingForm" class="form-grid"><label class="span-2">İlan başlığı<input id="listingTitle" required maxlength="90" placeholder="Örn. SR Suntour XCR 32 Air maşa"></label><label>Kategori<select id="listingCategory" required><option value="">Kategori seç</option><option>Kadrolar</option><option>Maşalar</option><option>Jant & Göbek</option><option>Frenler</option><option>Vites & Ruble</option><option>Gidon & Elcik</option><option>Pedal</option><option>Lastik</option><option>Komple Bisiklet</option><option>Diğer</option></select></label><label>Fiyat (₺)<input id="listingPrice" type="number" min="0" step="1" required placeholder="1500"></label><label>Ürün durumu<select id="listingCondition" required><option value="İkinci el">İkinci el</option><option value="Yeni">Yeni</option><option value="Yenilenmiş">Yenilenmiş</option></select></label><label>İlçe (isteğe bağlı)<input id="listingDistrict" maxlength="50" placeholder="Tepebaşı"></label><label class="span-2">Açıklama<textarea id="listingDescription" required maxlength="2000" rows="4" placeholder="Ürünün durumu, uyumluluk, kusurları..."></textarea></label><label class="span-2">Fotoğraf <span class="muted">(JPG, PNG veya WEBP · en fazla 5 MB)</span><input id="listingImage" type="file" accept="image/jpeg,image/png,image/webp"></label><label>Instagram kullanıcı adı<input id="sellerInstagram" maxlength="40" placeholder="kullaniciadi (isteğe bağlı)"></label><label>WhatsApp numarası<input id="sellerWhatsapp" maxlength="20" placeholder="05xx... (isteğe bağlı)"></label><p class="form-note span-2">İlanın yayınlanması yönetici onayına bağlı olabilir. Telefon ve sosyal medya bilgilerini yalnızca paylaşmak istiyorsan ekle.</p><button class="btn btn-primary full span-2" type="submit" id="listingSubmit">İlanı yayınla</button><p class="form-message span-2" id="listingMessage"></p></form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop hidden" id="detailModal"><section class="modal modal-wide detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><button class="modal-close" data-close="detailModal">×</button><div id="detailContent"></div></section></div>
+  <div class="modal-backdrop hidden" id="profileModal"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><button class="modal-close" data-close="profileModal">×</button><div class="modal-brand">EB<span> / PROFİL</span></div><h2 id="profileTitle">Profilim</h2><div id="profileContent"></div></section></div>
+  <div class="toast hidden" id="toast" role="status"></div>
+</body>
+</html>
